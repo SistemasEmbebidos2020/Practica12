@@ -76,7 +76,6 @@ try:
    print("Variable3:",recibir.json().get("feeds")[i].get("field3"))"""
    
 
-
   sleep(15)
 
 except KeyboardInterrupt: #Cierra el serial cuando el usuario cierra forzosamente el proceso
