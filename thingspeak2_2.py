@@ -30,7 +30,7 @@ try:
 	 #else:
 	 #print("La cadena recibida no contiene 2 elementos, sino:",len(lista),"elementos")
   sleep(15)
-
+ 
 
   #Read data from Thingsboard
   ############################################################################################# Prueba 2
