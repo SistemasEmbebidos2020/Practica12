@@ -34,9 +34,9 @@ try:
 
   #Read data from Thingsboard
   ############################################################################################# Prueba 2
-  recibir = requests.get("https://api.thingspeak.com/channels/"+KEYREAD+"/feeds.json")
+  """recibir = requests.get("https://api.thingspeak.com/channels/"+KEYREAD+"/feeds.json")
   jsonString = json.dumps(recibir.json(),indent=2) 
-  """print("toda la info es : ")
+  print("toda la info es : ")
   print(jsonString)"""
   
 
