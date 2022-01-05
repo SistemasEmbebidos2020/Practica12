@@ -29,7 +29,7 @@ try:
      print("Error en el request: ",enviar.status_code)
 	 #else:
 	 #print("La cadena recibida no contiene 2 elementos, sino:",len(lista),"elementos")
-  sleep(15)
+
  
 
   #Read data from Thingsboard
