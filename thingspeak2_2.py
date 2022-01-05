@@ -34,8 +34,8 @@ try:
 
   #Read data from Thingsboard
   ############################################################################################# Prueba 2
-  """recibir = requests.get("https://api.thingspeak.com/channels/"+KEYREAD+"/feeds.json")  ################# NO COMENTAR ESTA LÍNEA
-  jsonString = json.dumps(recibir.json(),indent=2) 
+  #recibir = requests.get("https://api.thingspeak.com/channels/"+KEYREAD+"/feeds.json")  ################# NO COMENTAR ESTA LÍNEA DE AQUÍ EN ADELANTE
+  """jsonString = json.dumps(recibir.json(),indent=2) 
   print("toda la info es : ")
   print(jsonString)"""
   
@@ -49,8 +49,8 @@ try:
 
   
   ############################################################################################# Prueba 4
+  #num = 3 if len(recibir.json().get("feeds"))>3 else len(recibir.json().get("feeds"))              ############ NO COMENTAR DE AQUÍ EN ADELANTE
   """print("----Mostrar la info de los primeros 3 valores de los 6 fields----")
-  num = 3 if len(recibir.json().get("feeds"))>3 else len(recibir.json().get("feeds"))              ############ NO COMENTAR PORQUE SE USA EN LINEA 68
   for i in range(num):
    print("*************************************************")
    jsonString = json.dumps(recibir.json().get("feeds")[i],indent=2)
