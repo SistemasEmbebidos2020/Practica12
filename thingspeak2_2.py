@@ -7,6 +7,7 @@ KEYREAD="1283406"#Poner aqui su key de lectura
 
 try:
  while True:
+  ############################################################################################################### Prueba 1
   #Escritura de datos a Thingsboard (hacerlo durante 90 segundos)
   value_1 = random.randint(-150, -50)
   value_2 = random.randint(-50, 50)
@@ -15,7 +16,6 @@ try:
   value_5 = random.randint(150, 190)
   value_6 = random.randint(190, 290)
   lista = [value_1,value_2,value_3,value_4,value_5,value_6] 
-  ############################################################################################################### Prueba 1
   if len(lista) == 6:
    enviar = requests.get("https://api.thingspeak.com/update?api_key="+KEY+"&field1="+str(lista[0])+"&field2="+str(lista[1])
                                    +"&field3="+str(lista[2])+"&field4="+str(lista[3])+"&field5="+str(lista[4])+"&field6="+str(lista[5]))  #cuando se quiere enviar dos o mas datos
