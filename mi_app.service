@@ -1,22 +1,15 @@
-[Unit] 
-Description=Mi Script de Python de Ejemplo 
-# Esta línea asegura que el script se ejecute después de que la red esté lista. 
-# ¡Es crucial para scripts que necesitan conexión a internet o a la red local!
+[Unit]
+Description=Mi Script de Python de Ejemplo
 After=network.target
 
 [Service]
-# Usuario que ejecutará el script (es mejor no usar root si no es necesario) 
-User=pi 
-# Grupo del usuario 
-Group=pi 
-# Directorio de trabajo: aquí es donde se ejecutará el script. 
-# Ayuda a que las rutas relativas en tu script funcionen correctamente.
-WorkingDirectory=/home/pi/scripts 
-# El comando para iniciar el script. 
-#Usamos la ruta completa. 
-ExecStart=/home/pi/scripts/mi_script.py 
-# Reiniciar el servicio automáticamente si falla. 
-Restart=always 
+ExecStart=/usr/bin/python3 /home/pi/scripts/mi_script.py
+Restart=on-failure
+RestartSec=5
+User=pi
+WorkingDirectory=/home/pi/scripts
+StandardOutput=journal
+StandardError=journal
 
-[Install] 
+[Install]
 WantedBy=multi-user.target
