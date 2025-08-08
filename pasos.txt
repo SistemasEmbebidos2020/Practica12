@@ -1,0 +1,46 @@
+1.	Abre la terminal.
+2.	Crea un directorio llamado scripts en tu carpeta de inicio: (o se puede usar la carpeta actual)
+mkdir /home/pi/scripts
+3.	Y asegúrate de que la primera línea de tu archivo python sea:
+#!/usr/bin/env python3
+# Esta línea le dice al sistema operativo qué intérprete debe usar para ejecutar el archivo
+4.	Escribe lo que quieres que se ejecute en tu scipt
+5.	Dale permisos de ejecución al script. Esto es fundamental. 
+5.1(cambiar mi_script.py por el nombre de su archivo)
+5.2(cambiar la ruta scripts por la ruta que está usando)
+sudo chmod +x /home/pi/scripts/mi_script.py
+6.	Los archivos de servicio del usuario se crean en /etc/systemd/system/. 
+Usa nano con sudo para crear el archivo. Le daremos un nombre descriptivo, como mi_app.service. 
+abre el archivo con el comando: sudo nano /etc/systemd/system/mi_app.service
+7.	Copia y pega el siguiente contenido en el editor modificando la ruta y el nombre de tu archivo.
+
+[Unit]
+Description=Mi Script de Python de Ejemplo
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/scripts/mi_script.py
+Restart=on-failure
+RestartSec=5
+User=pi
+WorkingDirectory=/home/pi/scripts
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
+8.	Guarda el archivo y ciérralo (Ctrl+X, luego Y, luego Enter)
+9.	Informa a systemd que has añadido un nuevo servicio:
+sudo systemctl daemon-reload
+10.	Habilita tu servicio. Esto crea un enlace simbólico que hace que se inicie automáticamente en cada arranque
+sudo systemctl enable mi_app.service
+11.	Inicia el servicio
+sudo systemctl start mi_app.service
+12.	Verifica el estado para asegurarte de que está funcionando sin errores:
+sudo systemctl status mi_app.service
+13.	Listo cuando enciendas de nuevo la raspberry el script se ejecutará automáticamente.
+Cómo Detener y Gestionar tu Script
+1.	con el comando: sudo systemctl stop mi_app.service se detiene el script
+2.	para reiniciar sudo systemctl restart mi_app.service
+3.	para deshabilitar permanentemente: sudo systemctl disable mi_app.service
