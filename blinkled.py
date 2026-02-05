@@ -1,36 +1,59 @@
+```python
 #!/usr/bin/env python3
+
+"""
+Blink an LED connected to a Raspberry Pi's GPIO pin.
+
+Author: [Your Name]
+Date: [Today's Date]
+
+This script initializes the GPIO, configures it for output,
+and enters an infinite loop where it toggles the state of the LED.
+"""
+
 import RPi.GPIO as GPIO
 import time
-import signal # Importamos el módulo signal
+import signal
 
 # --- Configuración GPIO ---
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-led_pin = 17
-GPIO.setup(led_pin, GPIO.OUT)
 
-# --- Nuestro manejador de señales ---
-# Esta función se ejecutará cuando se reciba SIGINT o SIGTERM
+# Pin configuration: 17 (BCM numbering) is used for the LED
+LED_PIN = 17  # Define a constant for readability and maintainability
+GPIO.setup(LED_PIN, GPIO.OUT)
+
 def cleanup_and_exit(signum, frame):
-    print(f"\nSeñal de detención recibida (Señal: {signum}). Limpiando pines GPIO...")
-    # Aquí va tu código de limpieza
-    GPIO.output(led_pin, GPIO.LOW) # Opcional: nos aseguramos que el LED quede apagado
+    """
+    Function to be executed when a SIGINT or SIGTERM signal is received.
+    
+    Parameters:
+        signum (int): The signal number that was received.
+        frame (object): The current execution stack frame.
+        
+    Returns:
+        None
+    """
+    print(f"\nReceived termination signal ({signum}). Cleaning up GPIO pins...")
+    # Ensure the LED is turned off before cleanup
+    GPIO.output(LED_PIN, GPIO.LOW)
+    # Clean up all GPIO pins
     GPIO.cleanup()
-    print("Pines limpiados. Saliendo del programa.")
-    # Salimos del script
+    print("GPIO pins cleaned. Exiting program.")
+    # Exit the script cleanly
     exit(0)
 
-# --- Registrar los manejadores para las señales ---
-# Le decimos a Python que llame a nuestra función 'cleanup_and_exit' cuando ocurran estas señales:
-signal.signal(signal.SIGINT, cleanup_and_exit)  # Para Ctrl+C
-signal.signal(signal.SIGTERM, cleanup_and_exit) # Para 'systemctl stop'
+# Register signal handlers for SIGINT and SIGTERM signals
+signal.signal(signal.SIGINT, cleanup_and_exit)  # For Ctrl+C
+signal.signal(signal.SIGTERM, cleanup_and_exit)  # For 'systemctl stop'
 
-print(f"Iniciando parpadeo en el pin GPIO {led_pin}. El script ahora puede ser detenido de forma segura.")
+print(f"Initializing LED blink on GPIO pin {LED_PIN}. The script can now be safely terminated.")
 
-# --- Bucle principal ---
-# Ya no necesitamos el bloque try/except/finally
+# Main loop: toggle the LED state every 0.5 seconds
 while True:
-    GPIO.output(led_pin, GPIO.HIGH)
-    time.sleep(0.5)
-    GPIO.output(led_pin, GPIO.LOW)
-    time.sleep(0.5)
+    GPIO.output(LED_PIN, GPIO.HIGH)
+    time.sleep(0.5)  # Pause for 0.5 seconds before switching states
+    GPIO.output(LED_PIN, GPIO.LOW)
+    time.sleep(0.5)  # Pause for another 0.5 seconds before repeating
+
+```
