@@ -1,4 +1,4 @@
-```python
+```
 #!/usr/bin/env python3
 
 """
@@ -20,17 +20,23 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 # Pin configuration: 17 (BCM numbering) is used for the LED
-LED_PIN = 17  # Define a constant for readability and maintainability
+# Define a constant for readability and maintainability
+LED_PIN = 17
+
+"""
+Configure the GPIO pin as an output.
+"""
 GPIO.setup(LED_PIN, GPIO.OUT)
+
 
 def cleanup_and_exit(signum, frame):
     """
     Function to be executed when a SIGINT or SIGTERM signal is received.
-    
+
     Parameters:
         signum (int): The signal number that was received.
         frame (object): The current execution stack frame.
-        
+
     Returns:
         None
     """
@@ -42,6 +48,7 @@ def cleanup_and_exit(signum, frame):
     print("GPIO pins cleaned. Exiting program.")
     # Exit the script cleanly
     exit(0)
+
 
 # Register signal handlers for SIGINT and SIGTERM signals
 signal.signal(signal.SIGINT, cleanup_and_exit)  # For Ctrl+C
@@ -55,5 +62,4 @@ while True:
     time.sleep(0.5)  # Pause for 0.5 seconds before switching states
     GPIO.output(LED_PIN, GPIO.LOW)
     time.sleep(0.5)  # Pause for another 0.5 seconds before repeating
-
 ```

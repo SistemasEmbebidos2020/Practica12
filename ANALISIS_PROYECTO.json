@@ -1,0 +1,18 @@
+{
+  "fecha": "2026-02-05T10:39:12.794503",
+  "tipo_proyecto": "Raspberry Pi",
+  "total_archivos": 4,
+  "hardware": [
+    "raspberry_pi"
+  ],
+  "librerias": [
+    "requests",
+    "math",
+    "time",
+    "json",
+    "signal",
+    "RPi.GPIO",
+    "random"
+  ],
+  "pines": {}
+}
