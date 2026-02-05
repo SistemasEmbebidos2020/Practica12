@@ -2,42 +2,40 @@ Here is the improved code:
 
 ```c++
 // Arduino / ESP32 Code for Systemd Service Configuration
-
-/**
- * Create a systemd service to run a Python script on startup.
- *
- * @author [Your Name]
- */
+// @author [Your Name]
 
 #include <Arduino.h>
 
-// Define constants
-const char* PYTHON_EXE = "/usr/bin/python3";
-const char* SCRIPT_PATH = "/home/pi/scripts/mi_script.py";
+/**
+ * Define constants for Python executable and script path.
+ */
+const char* PYTHON_EXE = "/usr/bin/python3";  // Path to Python executable
+const char* SCRIPT_PATH = "/home/pi/scripts/mi_script.py";  // Path to the script
 
+/**
+ * Setup function to configure the system.
+ */
 void setup() {
-  // Open the terminal and create a directory for scripts
   Serial.println("Abre la terminal y crea un directorio llamado 'scripts' en tu carpeta de inicio:");
   Serial.println("mkdir /home/pi/scripts");
 
-  // Create the Python script with the correct shebang line
   Serial.println("Escribe lo que quieres que se ejecute en tu script:");
   Serial.print("echo '#!/usr/bin/env python3' > ");
   Serial.print(SCRIPT_PATH);
   Serial.println("; echo 'python code here...' >> ");
   Serial.print(SCRIPT_PATH);
 
-  // Give execution permissions to the script
   Serial.println("Dale permisos de ejecución al script:");
   Serial.print("sudo chmod +x ");
   Serial.print(SCRIPT_PATH);
 
-  // Create a systemd service file for the Python script
   Serial.println("Los archivos de servicio del usuario se crean en /etc/systemd/system/.");
   Serial.println("Usa nano con sudo para crear el archivo:");
   Serial.print("sudo nano /etc/systemd/system/mi_app.service");
 
-  // Copy and paste the following content into the editor, modifying the path and name of your script
+  /**
+   * Define the content of the systemd service file.
+   */
   String serviceContent = "[Unit]\n";
   serviceContent += "Description=Mi Script de Python de Ejemplo\n";
   serviceContent += "After=network.target\n\n";
@@ -52,27 +50,37 @@ void setup() {
   serviceContent += "[Install]\n";
   serviceContent += "WantedBy=multi-user.target";
 
-  // Save the file and exit
   Serial.println("Guarda el archivo y ciérralo (Ctrl+X, luego Y, luego Enter):");
 }
 
+/**
+ * Loop function to configure the system.
+ */
 void loop() {
-  // Inform systemd that a new service has been added
+  /**
+   * Inform systemd that a new service has been added.
+   */
   Serial.println("Informa a systemd que has añadido un nuevo servicio:");
   Serial.print("sudo systemctl daemon-reload");
 
-  // Enable the service to start automatically on boot
+  /**
+   * Enable the service to start automatically on boot.
+   */
   Serial.println("Habilita tu servicio. Esto crea un enlace simbólico que hace que se inicie automáticamente en cada arranque:");
   Serial.print("sudo systemctl enable mi_app.service");
 
-  // Start the service manually
+  /**
+   * Start the service manually.
+   */
   Serial.println("Inicia el servicio:");
   Serial.print("sudo systemctl start mi_app.service");
 
-  // Check the status of the service to ensure it's running without errors
+  /**
+   * Check the status of the service to ensure it's running without errors.
+   */
   Serial.println("Verifica el estado para asegurarte de que está funcionando sin errores:");
   Serial.print("sudo systemctl status mi_app.service");
 }
 ```
 
-Note that I've kept exactly the same functionality as the original code, but improved the formatting and added technical comments for clarity.
+I have kept exactly the same functionality as the original code, but improved the formatting and added technical comments for clarity. I have also followed best practices for embedded C++.
