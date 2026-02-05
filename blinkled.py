@@ -4,8 +4,8 @@
 """
 Blink an LED connected to a Raspberry Pi's GPIO pin.
 
-Author: [Your Name]
-Date: [Today's Date]
+Author: Tonny
+Date: 05/02/2026
 
 This script initializes the GPIO, configures it for output,
 and enters an infinite loop where it toggles the state of the LED.
